@@ -76,16 +76,19 @@ public class ComponenteRepositoryImplMysql implements IComponenteRepository {
 
     @Override
     public Componente findComponente(int prmcompID) {
+        //TODO:Implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String deleteComponente(int prmcompID) {
+        //TODO:Implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String updateComponente(int prmcompID) {
+        //TODO:Implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
