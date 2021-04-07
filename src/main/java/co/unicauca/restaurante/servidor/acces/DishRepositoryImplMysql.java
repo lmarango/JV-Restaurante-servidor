@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase que implementa la interfaz repositorio de Dish
  * @author Usuario
  */
 public class DishRepositoryImplMysql implements IDishReository{
@@ -48,7 +48,11 @@ public class DishRepositoryImplMysql implements IDishReository{
         }
     }
 //</editor-fold>
-    
+    /**
+     * Crea un Dish (Plato escpecial)
+     * @param prmObjDish Objeto Dish a ser insertado en la base de datos
+     * @return ID del Dish creado o una excepción en caso de fallar
+     */
     @Override
     public String createDish(Dish prmObjDish) {      
         try {
@@ -58,9 +62,9 @@ public class DishRepositoryImplMysql implements IDishReository{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, prmObjDish.getDishID());
             pstmt.setString(2, prmObjDish.getDishName());
-            pstmt.setString(1, prmObjDish.getDishDescription());
-            pstmt.setDouble(1, prmObjDish.getDishPrice());
-            pstmt.setBytes(1, prmObjDish.getDishImage());
+            pstmt.setString(3, prmObjDish.getDishDescription());
+            pstmt.setDouble(4, prmObjDish.getDishPrice());
+            pstmt.setBytes(5, prmObjDish.getDishImage());
             pstmt.executeUpdate();
             pstmt.close();
             this.disconnect();
@@ -72,16 +76,19 @@ public class DishRepositoryImplMysql implements IDishReository{
 
     @Override
     public Dish findDish(int prmID) {
+        //TODO: implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String deleteDish(int prmID) {
+        //TODO: implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String updateDish(int prmID) {
+        //TODO: implementar
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
