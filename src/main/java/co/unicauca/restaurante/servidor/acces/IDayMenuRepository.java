@@ -7,7 +7,7 @@ import co.unicauca.restaurante.comunicacion.domain.DayMenu;
  *
  * @author Luis Arangp
  */
-public interface IDayMenu {
+public interface IDayMenuRepository {
     public String createDayMenu(DayMenu prmObjMenuDay);
     public DayMenu findDayMenu(int prmdmenID);
     public String updateDayMenu(int prmdmenID);
