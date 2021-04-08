@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Clase que implementa la interfaz repositorio de Dish
  * @author Usuario
  */
-public class DishRepositoryImplMysql implements IDishReository{
+public class DishRepositoryImplMysql implements IDishRepository{
     
     public Connection conn;
     
