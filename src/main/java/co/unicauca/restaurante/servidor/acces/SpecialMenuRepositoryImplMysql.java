@@ -49,7 +49,11 @@ public class SpecialMenuRepositoryImplMysql implements ISpecialMenuRepository{
         }
     }
 //</editor-fold>
-    
+    /**
+     * Crea un menu especial por paramatro del tipo del objeto
+     * @param prmObjSpecialMenu Nuevo objeto menu a ser creado
+     * @return El ID del objeto si fue creado o de lo contrario una expeción
+     */
     @Override
     public String createSpecialMenu(SpecialMenu prmObjSpecialMenu) {
         try {
@@ -68,7 +72,11 @@ public class SpecialMenuRepositoryImplMysql implements ISpecialMenuRepository{
         }
         return Integer.toString(prmObjSpecialMenu.getSmenID());
     }
-
+    /**
+     * Encuentra un menu por su ID
+     * @param prmsmenID ID del menu especial a buscar
+     * @return Objeto SpecialMenu si se encuentra en la base o null de lo contrario
+     */
     @Override
     public SpecialMenu findSpecialMenu(int prmsmenID) {
         SpecialMenu varSpecialMenu = null;
