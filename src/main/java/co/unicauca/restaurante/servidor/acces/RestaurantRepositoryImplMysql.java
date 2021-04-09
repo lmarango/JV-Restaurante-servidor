@@ -86,7 +86,19 @@ public class RestaurantRepositoryImplMysql implements IRestaurantRepository{
 
     @Override
     public String createRestaurant(Restaurant prmObjRestaurant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.connect();
+            String sql = "INSERT INTO Restaurant (resID, resName, resAddress, resDescFood) "
+                    + "VALUES (?,?,?,?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, prmObjRestaurant.getResID());
+            pstmt.setString(2, prmObjRestaurant.getResName());
+            pstmt.setString(3, prmObjRestaurant.getResAddress());
+            pstmt.setString(4, prmObjRestaurant.getResDescFood());
+        } catch (SQLException ex) {
+            Logger.getLogger(IRestaurantRepository.class.getName()).log(Level.SEVERE, "Error al insertar el Restaurante", ex);
+        }
+        return prmObjRestaurant.getResID();
     }
 
     @Override

@@ -5,6 +5,7 @@ import co.unicauca.restaurante.comunicacion.infra.Utilities;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +71,25 @@ public class SpecialMenuRepositoryImplMysql implements ISpecialMenuRepository{
 
     @Override
     public SpecialMenu findSpecialMenu(int prmsmenID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SpecialMenu varSpecialMenu = null;
+        try {
+            this.connect();
+            String sql = "SELECT * FROM SpecialMenu WHERE smenID=?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,prmsmenID);
+            ResultSet res = pstmt.executeQuery();
+            if (res.next()) {
+                varSpecialMenu = new SpecialMenu();
+                varSpecialMenu.setSmenID(res.getInt("smenID"));
+                varSpecialMenu.setSmenDay(res.getString("smenDay"));
+                varSpecialMenu.setResID(res.getString("resID"));
+            }
+            pstmt.close();
+            this.disconnect();
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecialMenuRepositoryImplMysql.class.getName()).log(Level.SEVERE, "Error al consultar el menu especial de la base de datos", ex);
+        }
+        return varSpecialMenu;
     }
     
 }
