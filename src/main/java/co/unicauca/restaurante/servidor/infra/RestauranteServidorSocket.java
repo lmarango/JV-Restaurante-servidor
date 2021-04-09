@@ -1,4 +1,5 @@
 package co.unicauca.restaurante.servidor.infra;
+import co.unicauca.restaurante.comunicacion.domain.Componente;
 import co.unicauca.restaurante.servidor.acces.Factory;
 import co.unicauca.restaurante.comunicacion.domain.Dish;
 import co.unicauca.restaurante.comunicacion.domain.Restaurant;
@@ -6,9 +7,11 @@ import co.unicauca.restaurante.comunicacion.domain.User;
 import co.unicauca.restaurante.comunicacion.infra.JsonError;
 import co.unicauca.restaurante.comunicacion.infra.Protocol;
 import co.unicauca.restaurante.comunicacion.infra.Utilities;
+import co.unicauca.restaurante.servidor.acces.IComponenteRepository;
 import co.unicauca.restaurante.servidor.acces.IDishRepository;
 import co.unicauca.restaurante.servidor.acces.IRestaurantRepository;
 import co.unicauca.restaurante.servidor.acces.IUserRepository;
+import co.unicauca.restaurante.servidor.domain.services.ComponenteService;
 import co.unicauca.restaurante.servidor.domain.services.DishService;
 import co.unicauca.restaurante.servidor.domain.services.RestaurantService;
 import co.unicauca.restaurante.servidor.domain.services.UserService;
@@ -34,6 +37,8 @@ public class RestauranteServidorSocket implements Runnable{
     private final RestaurantService service;
 
     private final DishService serviceDish;
+    
+    private final ComponenteService serviceComponente;
 
     /**
      * Objeto de tipo UserService.
@@ -81,6 +86,9 @@ public class RestauranteServidorSocket implements Runnable{
 
         IDishRepository repositoryDish = Factory.getInstance().getRepositoryDish();
         serviceDish = new DishService(repositoryDish);
+        
+        IComponenteRepository repositoryComponente = Factory.getInstance().gerRepositoryComponente();
+        serviceComponente = new ComponenteService(repositoryComponente);
     }
 
     /**
@@ -213,6 +221,10 @@ public class RestauranteServidorSocket implements Runnable{
                 if (protocolRequest.getAction().equals("post")) {
                     processPostDish(protocolRequest);
                 }
+            case "Componente":
+                if (protocolRequest.getAction().equals("post")) {
+                    processPostComponente(protocolRequest);
+                }
         }
 
     }
@@ -296,6 +308,17 @@ public class RestauranteServidorSocket implements Runnable{
         objDish.setDishPrice(Double.parseDouble(protocolRequest.getParameters().get(3).getValue()));
         // TODO: Revisar objDish.setDishImage(Base64.Decoder(protocolRequest.getParameters().get(4).getValue()));
         String response = serviceDish.CreateDish(objDish);
+        output.println(response);
+    }
+    
+    private void processPostComponente(Protocol protocolRequest){
+        Componente objComponente = new Componente();
+        
+        objComponente.setCompId(Integer.parseInt(protocolRequest.getParameters().get(0).getValue()));
+        objComponente.setCompNombre(protocolRequest.getParameters().get(1).getValue());
+        objComponente.setTipo(protocolRequest.getParameters().get(2).getValue());
+        objComponente.setPrecio(Integer.parseInt(protocolRequest.getParameters().get(3).getValue()));
+        String response = serviceComponente.createComponente(objComponente);
         output.println(response);
     }
 
