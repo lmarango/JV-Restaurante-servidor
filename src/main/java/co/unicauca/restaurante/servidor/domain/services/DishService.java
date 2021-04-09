@@ -31,7 +31,7 @@ public class DishService {
     public String CreateDish(Dish parDish) {
         List<JsonError> errors = new ArrayList<>();
         
-        if (parDish.getDishID() == 0 || parDish.getDishName().isEmpty() || parDish.getDishDescription().isEmpty() || parDish.getDishPrice() == 0 || parDish.getDishImage() == null) {
+        if (parDish.getDishID() == 0 || parDish.getDishName().isEmpty() || parDish.getDishDescription().isEmpty() || parDish.getDishPrice() == 0) {
         errors.add(new JsonError("400", "BAD_REQUEST", "LA INFORMACION X ES OBLIGATORIA "));
         }
         if (!errors.isEmpty()) {
